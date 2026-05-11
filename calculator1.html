@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0;
+            box-sizing: border-box;
+}
+        body{
+            background: #f0f2f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+        }
+
+        .calculator{
+            background: white;
+            width: 450px;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .inputWord{
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select{
+            padding: 15px;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 150px;
+        }
+
+        button{
+            width: 100%;
+            padding: 15px;
+            font-size: 22px;
+            background: #2ea8ff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .result{
+            margin-top: 20px;
+            font-size: 28px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border: 2px dotted #ccc;
+            border-radius: 10px;
+}
+ </style>
+</head>
+<body>
+<!--Calculator Box-->
+    <div class="calculator">
+        <h1>Mini Calculator</h1>
+
+<!--Inputs Numbers and Operators-->
+        <div class="inputWord">
+            <input type="number" id="num1" class="userInput">
+
+            <select id="operator">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+
+            <input type="number" id="num2" class="userInput">
+        </div>
+
+        <button onclick="calculate()">Calculate Amount</button>
+
+        <!--Result Section-->
+        <div class="result">
+            <span>Result:</span>
+            <span id="answer">---</span>
+        </div>
+    </div>
+
+<script>
+    function calculate() {
+
+        //get first number
+        const num1 = document.getElementById("num1").value;
+
+        //get second number
+        const num2 = document.getElementById("num2").value;
+
+        const operator = document.getElementById("operator").value;
+        
+        //check empty input
+        if(num1 === ""||num2 === ""){
+            document.getElementById("answer").innerText="fill both numbers";
+            return;
+        }
+        const firstNum=Number(num1);
+        const secondNum=Number(num2);
+        let result;
+
+        switch(operator) {
+            case "+":
+                result = firstNum + secondNum;
+                break;
+
+            case "-":
+                result = firstNum - secondNum;
+                break;
+
+            case "*":
+                result = firstNum * secondNum;
+                break;
+
+            case "/":
+                if(secondNum===0)
+                {
+                    result="Can't divided by 0!"
+                }else{
+                    result = firstNum / secondNum;
+                }
+                break;
+
+            default:
+                result = "Error";
+        }
+
+        document.getElementById("answer").innerText = result;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+Js variable 3 ခု(get/const/var)
+let အစားထိုးလို့ရ
+const အစားထိုးလို့မရ

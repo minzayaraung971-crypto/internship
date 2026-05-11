@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        /* background-color: gray; */
+      }
+
+      .title {
+        margin-bottom: 15px;
+        margin-left:15px;
+      }
+
+      nav {
+        background-color: darkblue;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        margin-bottom: 15px;
+      }
+      .logo {
+        color: white;
+        /* margin-left:5px; */
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .navlinks {
+        display: flex;
+        align-items: center;
+        column-gap: 30px;
+      }
+
+      .navlinks a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .feature {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        /* background-color: red; */
+      }
+
+      .box {
+        background-color: lightblue;
+        width: 300px;
+        height: 80px;
+        padding: 30px;
+        text-align: center;
+        margin: 15px;
+        border-radius: 5px;
+      }
+
+      .container {
+        display: flex;
+        gap: 50px;
+        margin: 15px;
+      }
+
+      .main {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 20px;
+      }
+
+      .main select {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 15px;
+        background-color: gainsboro;
+      }
+
+      .card {
+        border: 1px dotted black;
+        background-color: aqua;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-radius: 5px;
+        /* text-align:center; */
+      }
+
+      .colorCard {
+        width: 400px;
+        height: 150px;
+        background-color: rgb(26, 26, 123);
+        border: none;
+        padding: 30px;
+        color: white;
+      }
+
+      .colorCard h3 {
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .button {
+        display: flex;
+        gap: 20px;
+        padding-left: 50px;
+        /* margin:20px; */
+      }
+
+      .btn {
+        background-color: rgb(31, 31, 137);
+        border: none;
+        border-radius: 3px;
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- title open-->
+    <div class="title">
+      <h1>CSS Utility Simulator</h1>
+      <p>
+        Change the inputs below to see how atomic classes combine to build UIs.
+      </p>
+    </div>
+    <!-- title close -->
+
+    <!-- nav bar -->
+
+    <nav>
+      <div class="logo">MyLogo</div>
+
+      <div class="navlinks">
+        <a href="">Home</a>
+        <a href="">About</a>
+        <a href="">Contact</a>
+      </div>
+    </nav>
+
+    <!-- nav bar close -->
+
+    <!-- feature -->
+    <div class="feature">
+      <div class="box">Feature 1</div>
+      <div class="box">Feature 2</div>
+      <div class="box">Feature 3</div>
+    </div>
+    <!-- feature close -->
+
+    <!-- left -->
+    <div class="container">
+      <div class="main">
+        <h2>Utility Controls</h2>
+        
+        <label for="">Padding (Spacing)</label>
+        <select>
+          <option value="Medium (p-8)">Medium (p-8)</option>
+        </select>
+
+        <label for="">Background Theme (Colors)</label>
+        <select>
+          <option value="Primary Blue">Primary Blue</option>
+        </select>
+
+        <label for="">Text Size (Typography)</label>
+        <select>
+          <option value="Large (text-xl)">Large (text-xl)</option>
+        </select>
+
+        <label for="">Corner Radius (Borders)</label>
+        <select>
+          <option value="Square (rounded-none)">Square (rounded-none)</option>
+        </select>
+
+        <label for="">Shadow (Depth)</label>
+        <select>
+          <option value="Medium (shadow-md)">Medium (shadow-md)</option>
+        </select>
+      </div>
+      <!-- left -->
+
+      <!-- right -->
+      <div class="card">
+        <div class="colorCard">
+          <h3>Alex Walker</h3>
+          <p>
+            Full-Stack Web Developer building awesome things with Tailwind CSS.
+          </p>
+        </div>
+      </div>
+      <!-- right -->
+    </div>
+
+    <!-- footer -->
+    <div class="button">
+      <input type="submit" value="Submit" class="btn" />
+      <button class="btn">Hover Me Slowly!</button>
+    </div>
+    <!-- footer -->
+  </body>
+</html>
