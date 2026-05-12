@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Calculator</title>
+
+<style>
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:#ddd;
+}
+
+.calculator{
+    width:280px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+}
+
+#display{
+    width:100%;
+    height:70px;
+    font-size:30px;
+    text-align:right;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+button{
+    height:55px;
+    font-size:20px;
+    border:none;
+    border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display">
+
+    <div class="buttons">
+        <button>C</button>
+        <button>⌫</button>
+        <button>%</button>
+        <button>/</button>
+
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>*</button>
+
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>-</button>
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>+</button>
+
+        <button>()</button>
+        <button>0</button>
+        <button>.</button>
+        <button>=</button>
+    </div>
+</div>
+
+<script>
+
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll("button");
+
+function isOperator(v){
+    return ["+","-","*","/","=","%"].includes(v);
+}
+
+function insertValue(value){
+
+    let start = display.selectionStart;
+    let end = display.selectionEnd;
+
+    display.value =
+        display.value.slice(0,start) +
+        value +
+        display.value.slice(end);
+
+    display.focus();
+    display.setSelectionRange(start+value.length, start+value.length);
+}
+
+buttons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        let value = btn.innerText;
+        let last = display.value.slice(-1);
+
+        // ✔️ C
+        if(value === "C"){
+            display.value = "";
+            return;
+        }
+
+        // ✔️ backspace
+        if(value === "⌫"){
+            display.value = display.value.slice(0,-1);
+            return;
+        }
+
+        // ✔️ operator lock (ONLY ONCE)
+        if(isOperator(value)){
+            if(display.value === "" || isOperator(last)){
+                return; // ❌ block double operator
+            }
+        }
+
+        // ✔️ equals
+        if(value === "="){
+            try{
+                let expr = display.value.replace(/(\d+)%/g,"($1/100)");
+                let result = eval(expr);
+                display.value = isFinite(result) ? result : "Error";
+            }catch{
+                display.value = "Error";
+            }
+            return;
+        }
+
+        // ✔️ percent
+        if(value === "%"){
+            insertValue("%");
+            return;
+        }
+
+        // ✔️ normal input
+        insertValue(value);
+    });
+});
+
+</script>
+
+</body>
+</html>

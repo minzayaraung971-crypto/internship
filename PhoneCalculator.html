@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phone Calculator</title>
+
+<style>
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:500px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#d9d9d9;
+}
+
+.calculator{
+    width:280px;
+    background:white;
+    padding:20px;
+    border-radius:20px;
+}
+
+#display{
+    width:100%;
+    height:70px;
+    font-size:30px;
+    text-align:right;
+    border:none;
+    outline:none;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);   
+    gap:10px;
+}
+
+button{
+    height:55px;
+    border:none;
+    border-radius:50%;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.equal{
+    background:rgb(196, 32, 59);
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display">
+
+    <div class="buttons">
+        <button>C</button>
+        <button>⌫</button>
+        <button>%</button>
+        <button>/</button>
+
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>*</button>
+
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>-</button>
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>+</button>
+
+        <button>()</button>
+        <button>0</button>
+        <button>.</button>
+        <button class="equal">=</button>
+    </div>
+</div>
+
+<script>
+
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll("button");
+
+function insertValue(value){
+
+
+    if(display.value === "0"){
+        display.value = "";
+    }
+
+    let start = display.selectionStart;
+    let end = display.selectionEnd;
+
+    display.value =
+        display.value.slice(0, start) +value + display.value.slice(end);
+
+    display.focus();
+    display.setSelectionRange(
+        start + value.length,
+        start + value.length
+    );
+}
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        let value = btn.innerText;
+
+        switch(value){
+
+            case "C":
+                display.value = "0";
+                display.setSelectionRange(1,1);
+                break;
+
+            case "⌫":
+                let start = display.selectionStart;
+                let end = display.selectionEnd;
+
+                if(start === end && start > 0){
+                    display.value =
+                        display.value.slice(0,start-1) +
+                        display.value.slice(end);
+
+                    display.setSelectionRange(start-1,start-1);
+                } else {
+                    display.value =
+                        display.value.slice(0,start) +
+                        display.value.slice(end);
+
+                    display.setSelectionRange(start,start);
+                }
+
+                if(display.value === ""){
+                    display.value = "0";
+                }
+
+                display.focus();
+                break;
+
+            case "%":
+                insertValue("%");
+                break;
+
+            // case "()":
+                // let last = display.value.slice(-1);
+                case "()":
+                let open = (display.value.match(/\(/g) || []).length;
+                let close = (display.value.match(/\)/g) || []).length;
+
+                if(display.value === ""){
+                    insertValue("(");
+                }
+                else if(open <= close){
+                    insertValue("(");
+                }
+                else{
+                    insertValue(")");
+                }
+                break;
+                // if(
+                //     display.value === "" ||
+                //     last === "(" ||
+                //     last === "+" ||
+                //     last === "-" ||
+                //     last === "*" ||
+                //     last === "/"
+                // ){
+                //     insertValue("(");
+                // } else {
+                //     insertValue(")");
+                // }
+                // break;
+
+            case "=":
+                try{
+                    let expr = display.value.replace(/(\d+)%/g, "($1/100)");
+                    let result = eval(expr);
+
+                    display.value = isFinite(result) ? result : "Error";
+                } catch{
+                    display.value = "Error";
+                }
+                break;
+
+            default:
+                insertValue(value);
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>
