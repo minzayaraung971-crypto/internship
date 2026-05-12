@@ -96,6 +96,10 @@ button{
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll("button");
 
+function isOperator(value){
+    return ["+","-","*","/","=","."].includes(value);
+}
+
 function insertValue(value){
 
 
@@ -119,6 +123,13 @@ buttons.forEach(btn => {
     btn.addEventListener("click", () => {
 
         let value = btn.innerText;
+        let last = display.value.slice(-1);
+
+if(isOperator(value)){
+    if(display.value === "" || isOperator(last)){
+        return;
+    }
+}
 
         switch(value){
 
@@ -156,6 +167,23 @@ buttons.forEach(btn => {
                 insertValue("%");
                 break;
 
+            case "%":
+            insertValue("%");
+            break;
+
+            case ".":
+                let parts = display.value.split(/[\+\-\*\/\(\)%]/);
+                let currentNumber = parts[parts.length - 1];
+
+                if(currentNumber.includes(".")){
+                    return;
+                }
+
+                insertValue(".");
+                break;
+
+            
+
             // case "()":
                 // let last = display.value.slice(-1);
                 case "()":
@@ -188,8 +216,12 @@ buttons.forEach(btn => {
 
             case "=":
                 try{
-                    let expr = display.value.replace(/(\d+)%/g, "($1/100)");
+                    let expr = display.value.replace(/%/g, "/100")
+                                            .replace(/\)\(/g, ")*(")
+                                            .replace(/\)(\d)/g, ")*$1")
+                                            .replace(/(\d)\(/g, "$1*(");
                     let result = eval(expr);
+                    
 
                     display.value = isFinite(result) ? result : "Error";
                 } catch{
