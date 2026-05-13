@@ -134,8 +134,8 @@ if(isOperator(value)){
         switch(value){
 
             case "C":
-                display.value = "0";
-                display.setSelectionRange(1,1);
+                display.value = " ";
+                display.focus();
                 break;
 
             case "⌫":
@@ -167,9 +167,9 @@ if(isOperator(value)){
                 insertValue("%");
                 break;
 
-            case "%":
-            insertValue("%");
-            break;
+            // case "%":
+            // insertValue("%");
+            // break;
 
             case ".":
                 let parts = display.value.split(/[\+\-\*\/\(\)%]/);
@@ -223,7 +223,12 @@ if(isOperator(value)){
                     let result = eval(expr);
                     
 
-                    display.value = isFinite(result) ? result : "Error";
+                    display.value = isFinite(result) ? result : "can't divided by zero";
+
+                display.focus();
+                let len = display.value.length;
+                display.setSelectionRange(len, len);
+
                 } catch{
                     display.value = "Error";
                 }
